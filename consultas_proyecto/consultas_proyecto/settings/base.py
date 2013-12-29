@@ -195,6 +195,9 @@ DJANGO_APPS = (
 THIRD_PARTY_APPS = (
   # Database migration helpers:
   'south',
+  # Form helpers
+  'floppyforms',
+  'crispy_forms',
 )
 
 # Apps specific for this project go here.
@@ -206,6 +209,10 @@ LOCAL_APPS = (
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 ########## END APP CONFIGURATION
 
+
+########## CRISPY FORMS CONFIGURATION
+CRISPY_TEMPLATE_PACK = 'bootstrap3'
+########## END CRISPY FORMS CONFIGURATION
 
 ########## LOGGING CONFIGURATION
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#logging
