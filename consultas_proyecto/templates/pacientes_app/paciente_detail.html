@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block page_title %}
+  Paciente
+{% endblock page_title %}
+
+{% block content %}
+  Cédula: {{ paciente.cedula }}
+  Nombres: {{ paciente.nombres }}
+  Apellidos: {{ paciente.apellidos }}
+{% endblock content %}

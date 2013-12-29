@@ -7,6 +7,10 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     url(r'^$', TemplateView.as_view(template_name='base.html')),
+    url(
+      r'^pacientes/',
+      include('pacientes_app.urls')
+    ),
 
     # Examples:
     # url(r'^$', 'consultas_proyecto.views.home', name='home'),
