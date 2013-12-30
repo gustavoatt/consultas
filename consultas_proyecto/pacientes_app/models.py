@@ -30,7 +30,8 @@ class Paciente(models.Model):
     (u'22', u'Trujillo'),
     (u'23', u'Vargas'),
     (u'24', u'Yaracuy'),
-    (u'25', u'Zulia')
+    (u'25', u'Zulia'),
+    (u'26', u'Exterior')
   )
 
   # Campos de un paciente

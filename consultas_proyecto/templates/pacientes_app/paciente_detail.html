@@ -1,12 +1,40 @@
 {% extends "base.html" %}
 
 {% block page_title %}
-  Paciente
+  {{ paciente.nombres }} {{ paciente.apellidos }}
 {% endblock page_title %}
 
 {% block content %}
-  Cédula: {{ paciente.cedula }}
-  Nombres: {{ paciente.nombres }}
-  Apellidos: {{ paciente.apellidos }}
-  Estado: {{ paciente.get_estado_display }}
+  <div class="row">
+    <div class="col-md-10 well">
+      <dl class="dl-horizontal">
+        <dt>Cédula</dt>
+        <dd>{{ paciente.cedula }}</dd>
+
+        <dt>Nombres</dt>
+        <dd>{{ paciente.nombres }}</dd>
+
+        <dt>Apellidos</dt>
+        <dd>{{ paciente.apellidos }}</dd>
+
+        <dt>Fecha de nacimiento</dt>
+        <dd>{{ paciente.fecha_nacimiento }}</dd>
+
+        <dt>Dirección</dt>
+        <dd>{{ paciente.direccion }}</dd>
+
+        <dt>Ciudad</dt>
+        <dd>{{ paciente.ciudad }}</dd>
+
+        <dt>Estado</dt>
+        <dd>{{ paciente.get_estado_display }}</dd>
+
+        <dt>Télefono casa</dt>
+        <dd>{{ paciente.telefono_casa }}</dd>
+
+        <dt>Télefono celular</dt>
+        <dd>{{ paciente.telefono_celular }}</dd>
+      </dl>
+    </div>
+  </div>
 {% endblock content %}
