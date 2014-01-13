@@ -198,6 +198,8 @@ THIRD_PARTY_APPS = (
   # Form helpers
   'floppyforms',
   'crispy_forms',
+  # Server
+  'gunicorn',
 )
 
 # Apps specific for this project go here.

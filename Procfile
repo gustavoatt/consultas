@@ -1,0 +1,1 @@
+web: python consultas_proyecto/manage.py run_gunicorn --settings=consultas_proyecto.settings.production
