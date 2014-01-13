@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
 from django.contrib import messages
 from django.forms.extras import widgets
-from django.views.generic import DetailView, CreateView
+from django.views.generic import DetailView
+from django.views.generic import CreateView
+from django.views.generic.list import ListView
 
 from .forms import PacienteEditForm
 from .models import Paciente
@@ -31,4 +33,9 @@ class PacienteCreateView(FormActionMixin, CreateView):
 class PacienteDetailView(DetailView):
   model = Paciente
   context_object_name = "paciente"
+
+class PacienteListView(ListView):
+  model = Paciente
+  context_object_name = "pacientes"
+  paginate_by = 10
 ########## END VIEWS

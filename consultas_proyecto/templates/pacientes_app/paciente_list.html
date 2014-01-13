@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block page_title %}
+  Pacientes
+{% endblock %}
+
+{% block content %}
+  <div class="row">
+    <div class="col-md-10">
+      <ul>
+        {% for paciente in pacientes %}
+          <li>{{ paciente.nombres }} {{ paciente.apellidos }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+{% endblock %}

@@ -1,7 +1,7 @@
-import floppyforms
+from braces.views import LoginRequiredMixin
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit
-from braces.views import LoginRequiredMixin
+import floppyforms
 
 from .models import Paciente
 
