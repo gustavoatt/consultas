@@ -74,3 +74,7 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#secret-key
 SECRET_KEY = get_env_setting('SECRET_KEY')
 ########## END SECRET CONFIGURATION
+
+########## STATIC FILES CONFIGURATION
+STATIC_ROOT = normpath(join(SITE_ROOT, 'static'))
+########## END STATIC FILES CONFIGURATION
