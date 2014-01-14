@@ -1,6 +1,12 @@
 # -*- coding: utf-8 -*-
+import datetime
+import dateutil.relativedelta
+
 from django.core.urlresolvers import reverse
+from django.core.exceptions import ValidationError
 from django.db import models
+
+from .validators import validate_older_date
 
 class Paciente(models.Model):
   """ Información básica necesaria de cualquier paciente. """
@@ -38,7 +44,7 @@ class Paciente(models.Model):
   cedula           = models.CharField(max_length=10, unique=True)
   nombres          = models.CharField(max_length=200)
   apellidos        = models.CharField(max_length=200)
-  fecha_nacimiento = models.DateField()
+  fecha_nacimiento = models.DateField(validators=[validate_older_date])
   direccion        = models.TextField(blank=True)
   ciudad           = models.CharField(max_length=200)
   estado           = models.CharField(max_length=2, choices=ESTADOS)
@@ -54,3 +60,20 @@ class Paciente(models.Model):
 
   def get_absolute_url(self):
     return reverse('paciente_detail', kwargs={'pk': self.pk})
+
+  def edad(self, fecha=None):
+    """ Regresa la edad de este paciente a la hora de ser llamado.
+
+    Args:
+      fecha: la fecha desde la cual se contará la edad. Por defecto se usará la
+        fecha de hoy. La fecha de hoy debe ser un datetime para mayor precisión.
+    """
+    if fecha is None:
+      fecha = datetime.date.today()
+    if self.fecha_nacimiento > fecha.date():
+      msg = u'La fecha de nacimiento es en el futuro.'
+      raise ValidationError(msg)
+
+    delta = dateutil.relativedelta.relativedelta(
+      fecha, self.fecha_nacimiento)
+    return delta.years

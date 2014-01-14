@@ -5,7 +5,7 @@ from pacientes_app.models import Paciente
 
 class PacienteEditFormTestCase(TestCase):
   def setUp(self):
-    self.pacient = Paciente.objects.create(
+    self.paciente = Paciente.objects.create(
         cedula='18423347',
         fecha_nacimiento='1988-03-26'
     )
