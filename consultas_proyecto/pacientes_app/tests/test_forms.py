@@ -14,12 +14,13 @@ class PacienteEditFormTestCase(TestCase):
     data = {'cedula': '19883999',
             'nombres': 'Naymar',
             'apellidos': 'Torres',
+            'genero': Paciente.GENEROS[0][0],
             'fecha_nacimiento': '1989-10-12',
             'estado': Paciente.ESTADOS[0][0],
             'ciudad': 'Puerto Ayacucho',
     }
     form = PacienteEditForm(data=data)
-    self.assertTrue(form.is_valid())
+    self.assertTrue(form.is_valid(), form.errors)
 
   def test_invalid_form(self):
     data = {'cedula': '18423347',
