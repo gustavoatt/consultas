@@ -1,11 +1,11 @@
-from django.test import TestCase
+from django import test
 
-from pacientes_app.forms import PacienteEditForm
-from pacientes_app.models import Paciente
+from pacientes_app import forms
+from pacientes_app import models
 
-class PacienteEditFormTestCase(TestCase):
+class PacienteEditFormTestCase(test.TestCase):
   def setUp(self):
-    self.paciente = Paciente.objects.create(
+    self.paciente = models.Paciente.objects.create(
         cedula='18423347',
         fecha_nacimiento='1988-03-26'
     )
@@ -14,19 +14,35 @@ class PacienteEditFormTestCase(TestCase):
     data = {'cedula': '19883999',
             'nombres': 'Naymar',
             'apellidos': 'Torres',
-            'genero': Paciente.GENEROS[0][0],
+            'genero': models.Paciente.GENEROS[0][0],
             'fecha_nacimiento': '1989-10-12',
-            'estado': Paciente.ESTADOS[0][0],
+            'estado': models.Paciente.ESTADOS[0][0],
             'ciudad': 'Puerto Ayacucho',
     }
-    form = PacienteEditForm(data=data)
+    form = forms.PacienteEditForm(data=data)
     self.assertTrue(form.is_valid(), form.errors)
 
-  def test_invalid_form(self):
+    form.save()
+    self.assertEquals(2, models.Paciente.objects.count())
+
+  def test_invalid_form_unique_cedula(self):
     data = {'cedula': '18423347',
             'nombres': 'Pepe',
             'apellidos': 'Aguilar',
-            'fecha_nacimiento': '2014-01-01'
+            'fecha_nacimiento': '2014-01-01',
+            'genero': models.Paciente.GENEROS[0][0],
+            'estado': models.Paciente.ESTADOS[0][0],
+            'ciudad': 'La Paz',
     }
-    form = PacienteEditForm(data=data)
+    form = forms.PacienteEditForm(data=data)
     self.assertFalse(form.is_valid())
+    self.assertTrue('cedula' in form.errors)
+
+  def test_invalid_form_missing_fields(self):
+    data = {'cedula': '13875815',
+        'nombres': 'Ithamar Alexander',
+        'apellidos': 'Torres Torres'
+    }
+    form = forms.PacienteEditForm(data=data)
+    self.assertFalse(form.is_valid())
+    self.assertTrue('fecha_nacimiento' in form.errors)

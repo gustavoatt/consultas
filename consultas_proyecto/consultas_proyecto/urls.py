@@ -8,8 +8,12 @@ admin.autodiscover()
 urlpatterns = patterns('',
     url(r'^$', TemplateView.as_view(template_name='base.html')),
     url(
-      r'^pacientes/',
-      include('pacientes_app.urls')
+        r'^pacientes/',
+        include('pacientes_app.urls')
+    ),
+    url(
+        r'^historias/',
+        include('historias_app.urls')
     ),
 
     # Examples:

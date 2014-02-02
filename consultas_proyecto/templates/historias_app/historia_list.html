@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block page_title %}
+  Historias de {{ paciente.apellidos }} {{ paciente.nombres }}
+{% endblock page_title %}
+
+{% block content %}
+  <div class="row">
+    <div class="col-md-12">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Fecha</th>
+            <th>Motivo Consulta</th>
+            <th>Detalles</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for historia in historias %}
+            <tr>
+              <td>{{ forloop.counter }}</td>
+              <td>{{ historia.fecha }}</td>
+              <td>{{ historia.motivo_consulta }}</td>
+              <td><a href="#">Ver más</a></td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+{% endblock content %}

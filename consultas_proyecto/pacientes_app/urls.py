@@ -1,24 +1,30 @@
 # -*- coding: utf-8 -*-
-from django.conf.urls import patterns, url
+from django.conf import urls
 
 from .views import PacienteDetailView
 from .views import PacienteCreateView
 from .views import PacienteListView
+from .views import PacienteUpdateView
 
-urlpatterns = patterns("",
-  url(
-    regex=r'(?P<pk>\d+)/$',
+urlpatterns = urls.patterns("",
+  urls.url(
+    regex=r'^(?P<pk>\d+)/$',
     view=PacienteDetailView.as_view(),
     name='paciente_detail'
   ),
-  url(
-    regex=r'lista/$',
+  urls.url(
+    regex=r'^lista/$',
     view=PacienteListView.as_view(),
     name='paciente_list'
   ),
-  url(
-    regex=r'nuevo/$',
+  urls.url(
+    regex=r'^nuevo/$',
     view=PacienteCreateView.as_view(),
     name='paciente_create'
   ),
+  urls.url(
+    regex=r'^editar/(?P<pk>\d+)/$',
+    view=PacienteUpdateView.as_view(),
+    name='paciente_update'
+  )
 )

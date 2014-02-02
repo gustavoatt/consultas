@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block page_title %}
+  Historia {{ historia.paciente.nombres }} {{ historia.paciente.apellidos }}
+{% endblock page_title %}
+
+{% block content %}
+  {{ historia.motivo_consulta }}
+{% endblock content %}

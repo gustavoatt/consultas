@@ -45,20 +45,29 @@ class Paciente(models.Model):
   )
 
   # Campos de un paciente
-  cedula           = models.CharField(max_length=10, unique=True)
+  cedula           = models.CharField(max_length=10, unique=True,
+                        verbose_name=u'cédula'
+                     )
   nombres          = models.CharField(max_length=200)
   apellidos        = models.CharField(max_length=200)
   fecha_nacimiento = models.DateField(validators=[validate_older_date])
-  genero           = models.CharField(max_length=2, choices=GENEROS)
-  direccion        = models.TextField(blank=True)
+  genero           = models.CharField(max_length=2, choices=GENEROS,
+                        verbose_name=u'Género'
+                     )
+  direccion        = models.TextField(blank=True, verbose_name=u'dirección')
   ciudad           = models.CharField(max_length=200)
   estado           = models.CharField(max_length=2, choices=ESTADOS)
-  telefono_casa    = models.CharField(max_length=20, blank=True)
-  telefono_celular = models.CharField(max_length=20, blank=True)
+  telefono_casa    = models.CharField(max_length=20, blank=True,
+                        verbose_name=u'Teléfono Casa'
+                     )
+  telefono_celular = models.CharField(max_length=20, blank=True,
+                         verbose_name=u'Télefono Celular'
+                     )
 
   class Meta:
     verbose_name = u'Paciente'
     verbose_name_plural = u'Pacientes'
+    ordering = ['apellidos', 'nombres', 'cedula']
 
   def __unicode__(self):
     return u'{} {} C.I.: {}'.format(self.nombres, self.apellidos, self.cedula)

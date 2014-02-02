@@ -6,12 +6,35 @@
 
 {% block content %}
   <div class="row">
-    <div class="col-md-10">
-      <ul>
-        {% for paciente in pacientes %}
-          <li>{{ paciente.nombres }} {{ paciente.apellidos }}</li>
-        {% endfor %}
-      </ul>
+    <div class="col-md-12">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Apellidos</th>
+            <th>Nombres</th>
+            <th>Edad</th>
+            <th>Género</th>
+            <th>Historias</th>
+            <th>Contacto</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for paciente in pacientes %}
+            <tr>
+              <td>{{ forloop.counter }}</td>
+              <td>{{ paciente.apellidos }}</td>
+              <td>{{ paciente.nombres }}</td>
+              <td>{{ paciente.edad }}</td>
+              <td>{{ paciente.get_genero_display }}</td>
+              <td><a href={% url 'historia_list' paciente_id=paciente.id %}>Ver</a></td>
+              <td><a href={% url 'paciente_detail' pk=paciente.pk %}>Ver</a></td>
+              <td><a href={% url 'paciente_update' pk=paciente.pk %}>Editar</a></td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
     </div>
   </div>
 {% endblock %}

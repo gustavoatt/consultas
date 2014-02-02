@@ -1,9 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.contrib import messages
 from django.forms.extras import widgets
-from django.views.generic import DetailView
-from django.views.generic import CreateView
-from django.views.generic.list import ListView
+from django.views import generic
 
 from .forms import PacienteEditForm
 from .models import Paciente
@@ -25,16 +23,20 @@ class FormActionMixin(object):
 ########## END MIXINS
 
 ########## VIEWS
-class PacienteCreateView(FormActionMixin, CreateView):
+class PacienteCreateView(FormActionMixin, generic.CreateView):
   model = Paciente
   action = "Paciente creado exitosamente."
   form_class = PacienteEditForm
 
-class PacienteDetailView(DetailView):
+class PacienteUpdateView(generic.UpdateView):
+  model = Paciente
+  form_class = PacienteEditForm
+
+class PacienteDetailView(generic.DetailView):
   model = Paciente
   context_object_name = "paciente"
 
-class PacienteListView(ListView):
+class PacienteListView(generic.list.ListView):
   model = Paciente
   context_object_name = "pacientes"
   paginate_by = 10

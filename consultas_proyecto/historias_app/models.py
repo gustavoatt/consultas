@@ -4,9 +4,70 @@ from django.db import models
 from pacientes_app.models import Paciente
 
 class Historia(models.Model):
-  paciente = models.ForeignKey(Paciente)
-  fecha = models.DateTimeField(auto_now=True)
-  motivo_consulta = models.TextField()
+  """Historia médica realizada a un paciente durante una visita."""
+  paciente                 = models.ForeignKey(Paciente)
+  fecha                    = models.DateTimeField(auto_now=True)
+  motivo_consulta          = models.TextField(
+                                 verbose_name=u'Motivo de Consulta'
+                             )
+  antecedentes_personales  = models.TextField(blank=True)
+  antecedentes_familiares  = models.TextField(blank=True)
+  habitos_psicobiologicos  = models.TextField(blank=True)
+  examen_general           = models.TextField(blank=True)
+  examen_piel              = models.TextField(blank=True)
+  examen_cabeza            = models.TextField(blank=True)
+  examen_ojos              = models.TextField(blank=True)
+  examen_oidos             = models.TextField(blank=True)
+  examen_nariz             = models.TextField(blank=True)
+  examen_boca              = models.TextField(blank=True)
+  examen_garganta          = models.TextField(blank=True)
+  examen_respiratorio      = models.TextField(blank=True)
+  examen_osteomuscular     = models.TextField(blank=True)
+  examen_cardiovascular    = models.TextField(blank=True)
+  examen_gastrointestinal  = models.TextField(blank=True)
+  examen_genitourinario    = models.TextField(blank=True)
+  examen_ginecologico      = models.TextField(blank=True)
+  examen_nervioso_y_mental = models.TextField(blank=True)
+  examen_epidemiologico    = models.TextField(blank=True)
+  temperatura              = models.DecimalField(
+                               max_digits=5, decimal_places=2, blank=True,
+                               null=True
+                             )
+  pulso                    = models.DecimalField(
+                               max_digits=5, decimal_places=2, blank=True,
+                               null=True
+                             )
+  respiracion              = models.DecimalField(
+                               max_digits=5, decimal_places=2, blank=True,
+                               null=True
+                             )
+  tension_art_sist         = models.IntegerField(
+                               blank=True, null=True,
+                               verbose_name=u'Tensión Arterial Sistólica'
+                             )
+  tension_art_diast        = models.IntegerField(
+                               blank=True, null=True,
+                               verbose_name=u'Tensión Arterial Diástolica'
+                             )
+  frecuencia_cardiaca      = models.DecimalField(
+                               max_digits=5, decimal_places=2, blank=True,
+                               null=True
+                             )
+  peso                     = models.DecimalField(
+                               max_digits=5, decimal_places=2, blank=True,
+                               null=True,
+                               help_text=u'Peso en Kilogramos'
+                             )
+  talla                    = models.DecimalField(
+                               max_digits=7, decimal_places=2, blank=True,
+                               null=True
+                             )
+  grasa_corporal           = models.DecimalField(
+                               max_digits=7, decimal_places=2, blank=True,
+                               null=True,
+                               verbose_name=u'Índice de Masa Corporal'
+                             )
+
 
 class Examen(models.Model):
   historia = models.ForeignKey(Historia)
