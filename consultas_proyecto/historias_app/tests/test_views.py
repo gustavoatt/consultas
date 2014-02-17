@@ -21,7 +21,10 @@ class HistoriasAppViewTest(test.TestCase):
     )
     self.historia = historia_models.Historia.objects.create(
         paciente=self.paciente,
-        motivo_consulta='Prueba de consulta'
+        motivo_consulta='Prueba de consulta',
+        examen_general='Todo en orden',
+        temperatura=26,
+        pulso=15.10
     )
     self.client = client.Client()
 
@@ -45,3 +48,6 @@ class HistoriasAppViewTest(test.TestCase):
 
     self.assertTrue('Gustavo' in response.content)
     self.assertTrue('Prueba de consulta' in response.content)
+
+    self.assertTrue('Todo en orden' in response.content)
+    self.assertTrue('26' in response.content)

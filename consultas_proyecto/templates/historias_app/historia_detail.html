@@ -5,5 +5,59 @@
 {% endblock page_title %}
 
 {% block content %}
-  {{ historia.motivo_consulta }}
+  <ul class="nav nav-tabs">
+    <li class="tab-pane active"><a href="#info_basica" data-toggle="tab">Información Básica</a></li>
+    <li class="tab-pane"><a href="#examenes" data-toggle="tab">Exámenes</a></li>
+    <li class="tab-pane"><a href="#signos_vitales" data-toggle="tab">Signos Vitales</a></li>
+  </ul>
+
+  <div class="tab-content panel-body">
+    <div class="tab-pane active" id="info_basica">
+          <dl class="dl-horizontal">
+            <dt>Fecha</dt>
+            <dd>{{ historia.fecha }}</dd>
+
+            <dt>Motivo de Consulta</dt>
+            <dd>{{ historia.motivo_consulta }}</dd>
+
+            {% if historia.antecedentes_personales %}
+              <dt>Antecedentes Personales</dt>
+              <dd>{{ historia.antecedentes_personales }}</dd>
+            {% endif %}
+
+            {% if historia.antecedentes_familiares %}
+              <dt>Antecedentes Familiares</dt>
+              <dd>{{ historia.antecedentes_familiares }}</dd>
+            {% endif %}
+
+            {% if historia.habitos_psicobiologicos %}
+              <dt>Habitos Psico-biólogicos</dt>
+              <dd>{{ historia.habitos_psicobiologicos }}</dd>
+            {% endif %}
+          </dl>
+      </div>
+
+      <div class="tab-pane" id="examenes">
+        <dl class="dl-horizontal">
+          {% for name, val in historia.get_examenes_fields %}
+            {% if val %}
+              <dt>{{ name.capitalize }}</dt>
+              <dd>{{ val }}</dd>
+            {% endif %}
+          {% endfor %}
+        </dl>
+      </div>
+
+      <div class="tab-pane" id="signos_vitales">
+        <dl class="dl-horizontal">
+          {% for name, val in historia.get_signos_vitales_fields %}
+            {% if val != "None" %}
+              <dt>{{ name.capitalize }}</dt>
+              <dd>{{ val }}</dd>
+            {% endif %}
+          {% endfor %}
+        </dl>
+      </div>
+    </div>
+  </div>
 {% endblock content %}

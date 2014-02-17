@@ -68,6 +68,28 @@ class Historia(models.Model):
                                verbose_name=u'Índice de Masa Corporal'
                              )
 
+  def get_examenes_fields(self):
+    return [(field.verbose_name, field.value_to_string(self))
+            for field in Historia._meta.fields
+            if 'examen' in field.name]
+
+  def get_signos_vitales_fields(self):
+    signos_vitales_field_names = [
+        'temperatura',
+        'pulso',
+        'respiracion',
+        'tension_art_sist',
+        'tension_art_diast',
+        'frecuencia_cardiaca',
+        'peso',
+        'talla',
+        'grasa_corporal'
+    ]
+
+    return [(field.verbose_name, field.value_to_string(self))
+            for field in Historia._meta.fields
+            if field.name in signos_vitales_field_names]
+
 
 class Examen(models.Model):
   historia = models.ForeignKey(Historia)

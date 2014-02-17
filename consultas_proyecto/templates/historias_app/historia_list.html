@@ -22,7 +22,7 @@
               <td>{{ forloop.counter }}</td>
               <td>{{ historia.fecha }}</td>
               <td>{{ historia.motivo_consulta }}</td>
-              <td><a href="#">Ver más</a></td>
+              <td><a href={% url 'historia_detail' pk=historia.pk %}>Ver más</a></td>
             </tr>
           {% endfor %}
         </tbody>
