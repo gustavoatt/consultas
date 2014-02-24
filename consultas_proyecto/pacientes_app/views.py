@@ -3,8 +3,12 @@ from django.contrib import messages
 from django.forms.extras import widgets
 from django.views import generic
 
+from rest_framework import generics as rest_generic
+from rest_framework import filters as rest_filters
+
 from .forms import PacienteEditForm
 from .models import Paciente
+from .serializers import PacienteSerializer
 
 ########## MIXINS
 class FormActionMixin(object):
@@ -40,4 +44,14 @@ class PacienteListView(generic.list.ListView):
   model = Paciente
   context_object_name = "pacientes"
   paginate_by = 10
+
+class PacienteSearchAPIView(rest_generic.ListAPIView):
+  class CustomSearchFilter(rest_filters.SearchFilter):
+    search_param = 'q'
+
+  model = Paciente
+  queryset = Paciente.objects.all()
+  serializer_class = PacienteSerializer
+  filter_backends = (CustomSearchFilter,)
+  search_fields = ('cedula', 'nombres', 'apellidos')
 ########## END VIEWS

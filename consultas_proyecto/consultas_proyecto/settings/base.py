@@ -198,6 +198,8 @@ THIRD_PARTY_APPS = (
   # Form helpers
   'floppyforms',
   'crispy_forms',
+  # REST API
+  'rest_framework',
   # Server
   'gunicorn',
 )
@@ -211,7 +213,6 @@ LOCAL_APPS = (
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 ########## END APP CONFIGURATION
-
 
 ########## CRISPY FORMS CONFIGURATION
 CRISPY_TEMPLATE_PACK = 'bootstrap3'

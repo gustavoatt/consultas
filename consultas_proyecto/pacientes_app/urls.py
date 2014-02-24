@@ -5,6 +5,7 @@ from .views import PacienteDetailView
 from .views import PacienteCreateView
 from .views import PacienteListView
 from .views import PacienteUpdateView
+from .views import PacienteSearchAPIView
 
 urlpatterns = urls.patterns("",
   urls.url(
@@ -26,5 +27,12 @@ urlpatterns = urls.patterns("",
     regex=r'^editar/(?P<pk>\d+)/$',
     view=PacienteUpdateView.as_view(),
     name='paciente_update'
+  ),
+
+  # API URLS
+  urls.url(
+    regex=r'^api/listar/$',
+    view=PacienteSearchAPIView.as_view(),
+    name='api_paciente_list'
   )
 )
