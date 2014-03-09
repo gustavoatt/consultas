@@ -5,4 +5,4 @@ from .models import Paciente
 class PacienteSerializer(serializers.ModelSerializer):
   class Meta:
     model = Paciente
-    fields = ('cedula', 'nombres', 'apellidos')
+    fields = ('id', 'cedula', 'nombres', 'apellidos')
