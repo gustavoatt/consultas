@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from django.core import urlresolvers
 from django.db import models
 
 from pacientes_app.models import Paciente
@@ -67,6 +68,9 @@ class Historia(models.Model):
                                null=True,
                                verbose_name=u'Índice de Masa Corporal'
                              )
+
+  def get_absolute_url(self):
+    return urlresolvers.reverse('historia_detail', kwargs={'pk': self.pk})
 
   def get_examenes_fields(self):
     return [(field.verbose_name, field.value_to_string(self))

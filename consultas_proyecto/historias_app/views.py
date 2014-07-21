@@ -11,6 +11,10 @@ class HistoriaCreateView(generic.CreateView):
   model = Historia
   form_class = HistoriaEditForm
 
+class HistoriaUpdateView(generic.UpdateView):
+  model = Historia
+  form_class = HistoriaEditForm
+
 class HistoriaDetailView(generic.DetailView):
   model = Historia
   context_object_name = "historia"

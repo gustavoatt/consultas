@@ -9,6 +9,7 @@ from historias_app import models as historia_models
 from historias_app import forms
 
 HISTORIA_CREATE_URL_NAME = 'historia_create'
+HISTORIA_UPDATE_URL_NAME = 'historia_update'
 HISTORIA_DETAIL_URL_NAME = 'historia_detail'
 
 class HistoriasAppViewTest(test.TestCase):
@@ -31,11 +32,22 @@ class HistoriasAppViewTest(test.TestCase):
   def test_historia_create_view(self):
     response = self.client.get(urlresolvers.reverse(HISTORIA_CREATE_URL_NAME))
     self.assertEqual(200, response.status_code)
-    self.assertTrue('form' in response.context)
+    self.assertIn('form', response.context)
     self.assertEqual(forms.HistoriaEditForm, response.context['form'].__class__)
 
-    self.assertTrue('Paciente' in response.content)
-    self.assertTrue('Motivo de Consulta' in response.content)
+    self.assertIn('Paciente', response.content)
+    self.assertIn('Motivo de Consulta', response.content)
+
+  def test_historia_update_view(self):
+    """Tests that historia update view renders correctly."""
+    response = self.client.get(urlresolvers.reverse(
+        HISTORIA_UPDATE_URL_NAME, kwargs={'pk': self.historia.pk}))
+    self.assertEqual(200, response.status_code)
+    self.assertIn('form', response.context)
+    self.assertEqual(forms.HistoriaEditForm, response.context['form'].__class__)
+
+    self.assertIn('Paciente', response.content)
+    self.assertIn('Motivo de Consulta', response.content)
 
   def test_historia_detail_view(self):
     response = self.client.get(urlresolvers.reverse(
@@ -44,10 +56,10 @@ class HistoriasAppViewTest(test.TestCase):
       )
     )
     self.assertEqual(200, response.status_code)
-    self.assertTrue('historia' in response.context)
+    self.assertIn('historia', response.context)
 
-    self.assertTrue('Gustavo' in response.content)
-    self.assertTrue('Prueba de consulta' in response.content)
+    self.assertIn('Gustavo', response.content)
+    self.assertIn('Prueba de consulta', response.content)
 
-    self.assertTrue('Todo en orden' in response.content)
-    self.assertTrue('26' in response.content)
+    self.assertIn('Todo en orden', response.content)
+    self.assertIn('26', response.content)
