@@ -1,3 +1,6 @@
+# Sqlite database.
+consultas_proyecto_db
+
 # Python bytecode:
 *.py[co]
 

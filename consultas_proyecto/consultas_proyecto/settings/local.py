@@ -25,8 +25,8 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#databases
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'consultas_proyecto',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': 'consultas_proyecto_db',
         'USER': '',
         'PASSWORD': '',
         'HOST': '',

@@ -6,14 +6,11 @@ A project template for Django 1.5.
 
 To use this project follow these steps:
 
-#. Create your working environment
-#. Install Django
-#. Create the new project using the django-two-scoops template
-#. Install additional dependencies
-#. Use the Django admin to create the project
-
-*note: these instructions show creation of a project called "icecream".  You
-should replace this name with the actual name of your project.*
+* Create your working environment
+* Install Django
+* Create the new project using the django-two-scoops template
+* Install additional dependencies
+* Use the Django admin to create the project
 
 Working Environment
 ===================
