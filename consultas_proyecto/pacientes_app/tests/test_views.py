@@ -9,11 +9,7 @@ from pacientes_app import models
 from pacientes_app import views
 from pacientes_app import forms
 from pacientes_app import serializers
-
-PACIENTE_DETAIL_URL_NAME = 'paciente_detail'
-PACIENTE_LIST_URL_NAME = 'paciente_list'
-PACIENTE_CREATE_URL_NAME = 'paciente_create'
-PACIENTE_SEARCH_API_URL_NAME = 'api_paciente_list'
+from pacientes_app import urls as paciente_urls
 
 class PacientesAppViewsTest(test.TestCase):
   def setUp(self):
@@ -27,7 +23,7 @@ class PacientesAppViewsTest(test.TestCase):
 
   def test_paciente_detail_view(self):
     response = self.client.get(urlresolvers.reverse(
-        PACIENTE_DETAIL_URL_NAME,
+        paciente_urls.PACIENTE_DETAIL_URL_NAME,
         kwargs={'pk': self.paciente.pk}
       )
     )
@@ -38,7 +34,8 @@ class PacientesAppViewsTest(test.TestCase):
     self.assertTrue('Torres' in response.content)
 
   def test_paciente_create_view(self):
-    response = self.client.get(urlresolvers.reverse(PACIENTE_CREATE_URL_NAME))
+    response = self.client.get(urlresolvers.reverse(
+        paciente_urls.PACIENTE_CREATE_URL_NAME))
     self.assertEqual(200, response.status_code)
     self.assertTrue('form' in response.context)
     self.assertEqual(forms.PacienteEditForm, response.context['form'].__class__)
@@ -52,7 +49,8 @@ class PacientesAppViewsTest(test.TestCase):
         nombres='Ithamar Alexander',
         fecha_nacimiento='1980-04-20'
     )
-    response = self.client.get(urlresolvers.reverse(PACIENTE_LIST_URL_NAME))
+    response = self.client.get(urlresolvers.reverse(
+        paciente_urls.PACIENTE_LIST_URL_NAME))
     self.assertEqual(200, response.status_code)
     self.assertTrue('pacientes' in response.context)
 
@@ -67,7 +65,7 @@ class PacientesAppViewsTest(test.TestCase):
         fecha_nacimiento='1980-04-20'
     )
 
-    url = urlresolvers.reverse(PACIENTE_SEARCH_API_URL_NAME)
+    url = urlresolvers.reverse(paciente_urls.PACIENTE_SEARCH_API_URL_NAME)
     api_client = APIClient()
 
     response = api_client.get(url, format='json')

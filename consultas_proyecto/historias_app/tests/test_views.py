@@ -5,12 +5,9 @@ from django.core import urlresolvers
 
 from pacientes_app import models as paciente_models
 
-from historias_app import models as historia_models
 from historias_app import forms
-
-HISTORIA_CREATE_URL_NAME = 'historia_create'
-HISTORIA_UPDATE_URL_NAME = 'historia_update'
-HISTORIA_DETAIL_URL_NAME = 'historia_detail'
+from historias_app import models as historia_models
+from historias_app import urls as historia_urls
 
 class HistoriasAppViewTest(test.TestCase):
   def setUp(self):
@@ -30,7 +27,8 @@ class HistoriasAppViewTest(test.TestCase):
     self.client = client.Client()
 
   def test_historia_create_view(self):
-    response = self.client.get(urlresolvers.reverse(HISTORIA_CREATE_URL_NAME))
+    response = self.client.get(urlresolvers.reverse(
+        historia_urls.HISTORIA_CREATE_URL_NAME))
     self.assertEqual(200, response.status_code)
     self.assertIn('form', response.context)
     self.assertEqual(forms.HistoriaEditForm, response.context['form'].__class__)
@@ -41,7 +39,8 @@ class HistoriasAppViewTest(test.TestCase):
   def test_historia_update_view(self):
     """Tests that historia update view renders correctly."""
     response = self.client.get(urlresolvers.reverse(
-        HISTORIA_UPDATE_URL_NAME, kwargs={'pk': self.historia.pk}))
+        historia_urls.HISTORIA_UPDATE_URL_NAME,
+        kwargs={'pk': self.historia.pk}))
     self.assertEqual(200, response.status_code)
     self.assertIn('form', response.context)
     self.assertEqual(forms.HistoriaEditForm, response.context['form'].__class__)
@@ -51,7 +50,7 @@ class HistoriasAppViewTest(test.TestCase):
 
   def test_historia_detail_view(self):
     response = self.client.get(urlresolvers.reverse(
-        HISTORIA_DETAIL_URL_NAME,
+        historia_urls.HISTORIA_DETAIL_URL_NAME,
         kwargs={'pk': self.historia.pk}
       )
     )
