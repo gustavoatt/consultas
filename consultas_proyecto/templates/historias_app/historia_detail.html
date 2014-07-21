@@ -35,6 +35,8 @@
               <dd>{{ historia.habitos_psicobiologicos }}</dd>
             {% endif %}
           </dl>
+
+          <a href={% url 'historia_update' pk=historia.pk %} class="btn btn-warning">Editar</a>
       </div>
 
       <div class="tab-pane" id="examenes">
