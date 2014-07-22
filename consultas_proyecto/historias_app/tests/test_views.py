@@ -2,6 +2,7 @@
 from django import test
 from django.test import client
 from django.core import urlresolvers
+from django.contrib.auth import models as auth_models
 
 from pacientes_app import models as paciente_models
 
@@ -10,7 +11,12 @@ from historias_app import models as historia_models
 from historias_app import urls as historia_urls
 
 class HistoriasAppViewTest(test.TestCase):
+  LOGGED_USERNAME = 'test_user'
+  LOGGED_PASSWORD = 'secret'
+
   def setUp(self):
+    self.user = auth_models.User.objects.create_user(
+        username=self.LOGGED_USERNAME, password=self.LOGGED_PASSWORD)
     self.paciente = paciente_models.Paciente.objects.create(
         cedula='18423347',
         nombres='Gustavo Adolfo',
@@ -24,7 +30,10 @@ class HistoriasAppViewTest(test.TestCase):
         temperatura=26,
         pulso=15.10
     )
+
     self.client = client.Client()
+    self.assertTrue(self.client.login(username=self.LOGGED_USERNAME,
+                                      password=self.LOGGED_PASSWORD))
 
   def test_historia_create_view(self):
     response = self.client.get(urlresolvers.reverse(

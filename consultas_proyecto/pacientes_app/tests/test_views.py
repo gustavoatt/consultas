@@ -2,6 +2,7 @@
 from django import test
 from django.test import client
 from django.core import urlresolvers
+from django.contrib.auth import models as auth_models
 
 from rest_framework.test import APIClient
 
@@ -12,14 +13,22 @@ from pacientes_app import serializers
 from pacientes_app import urls as paciente_urls
 
 class PacientesAppViewsTest(test.TestCase):
+  LOGGED_USERNAME = 'test_user'
+  LOGGED_PASSWORD = 'secret'
+
   def setUp(self):
+    self.user = auth_models.User.objects.create_user(
+        username=self.LOGGED_USERNAME, password=self.LOGGED_PASSWORD)
     self.paciente = models.Paciente.objects.create(
         cedula='18423347',
         nombres='Gustavo Adolfo',
         apellidos='Torres Torres',
         fecha_nacimiento='1988-03-26'
     )
+
     self.client = client.Client()
+    self.assertTrue(self.client.login(username=self.LOGGED_USERNAME,
+                                      password=self.LOGGED_PASSWORD))
 
   def test_paciente_detail_view(self):
     response = self.client.get(urlresolvers.reverse(
@@ -67,16 +76,18 @@ class PacientesAppViewsTest(test.TestCase):
 
     url = urlresolvers.reverse(paciente_urls.PACIENTE_SEARCH_API_URL_NAME)
     api_client = APIClient()
+    self.assertTrue(api_client.login(username=self.LOGGED_USERNAME,
+                                     password=self.LOGGED_PASSWORD))
 
     response = api_client.get(url, format='json')
 
     serialized_data1 = serializers.PacienteSerializer(self.paciente).data
     serialized_data2 = serializers.PacienteSerializer(newer_pac).data
-    self.assertTrue(serialized_data1 in response.data)
-    self.assertTrue(serialized_data2 in response.data)
+    self.assertIn(serialized_data1, response.data)
+    self.assertIn(serialized_data2, response.data)
 
     # Test filtered results
     response = api_client.get(url + '?q=gustavo', format='json')
 
-    self.assertTrue(serialized_data1 in response.data)
-    self.assertFalse(serialized_data2 in response.data)
+    self.assertIn(serialized_data1, response.data)
+    self.assertNotIn(serialized_data2, response.data)

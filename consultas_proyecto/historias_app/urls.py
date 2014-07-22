@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from django.conf import urls
+from django.contrib.auth import decorators
 
 from .views import HistoriaCreateView
 from .views import HistoriaDetailView
@@ -14,22 +15,22 @@ HISTORIA_LIST_URL_NAME   = 'historia_list'
 urlpatterns = urls.patterns("",
     urls.url(
         regex=r'^nueva/$',
-        view=HistoriaCreateView.as_view(),
+        view=decorators.login_required(HistoriaCreateView.as_view()),
         name=HISTORIA_CREATE_URL_NAME
     ),
     urls.url(
         regex=r'^editar/(?P<pk>\d+)$',
-        view=HistoriaUpdateView.as_view(),
+        view=decorators.login_required(HistoriaUpdateView.as_view()),
         name=HISTORIA_UPDATE_URL_NAME
     ),
     urls.url(
         regex=r'^(?P<pk>\d+)/$',
-        view=HistoriaDetailView.as_view(),
+        view=decorators.login_required(HistoriaDetailView.as_view()),
         name=HISTORIA_DETAIL_URL_NAME
     ),
     urls.url(
         regex=r'^paciente/(?P<paciente_id>\d+)/$',
-        view=HistoriaPacienteListView.as_view(),
+        view=decorators.login_required(HistoriaPacienteListView.as_view()),
         name=HISTORIA_LIST_URL_NAME
     )
 )
