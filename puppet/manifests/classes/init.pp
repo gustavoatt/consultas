@@ -28,7 +28,7 @@ class init {
   # Oh my zsh.
   class { "ohmyzsh": }
   ohmyzsh::install { "vagrant": }
-  ohmyzsh::theme { 'vagrant': theme => 'dieter' }
+  ohmyzsh::theme { 'vagrant': theme => 'bureau' }
   ohmyzsh::plugins { 'vagrant': plugins => 'git django heroku ' }
 
   $MANAGE_FILE="/vagrant/consultas_proyecto/manage.py"
