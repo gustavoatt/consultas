@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 from django import test
-from django.test import client
-from django.core import urlresolvers
 from django.contrib.auth import models as auth_models
+from django.core import urlresolvers
+from django.test import client
 
 from rest_framework.test import APIClient
 
@@ -56,15 +56,46 @@ class PacientesAppViewsTest(test.TestCase):
     models.Paciente.objects.create(
         cedula='13785815',
         nombres='Ithamar Alexander',
+        apellidos='Torres',
         fecha_nacimiento='1980-04-20'
     )
+
+    # When no query is passed, the view should list all patients in the database.
     response = self.client.get(urlresolvers.reverse(
         paciente_urls.PACIENTE_LIST_URL_NAME))
     self.assertEqual(200, response.status_code)
     self.assertTrue('pacientes' in response.context)
 
-    self.assertTrue('Ithamar' in response.content)
-    self.assertTrue('Gustavo' in response.content)
+    self.assertIn('Ithamar', response.content)
+    self.assertIn('Gustavo', response.content)
+
+    # Search for a specific patient by cedula.
+    response = self.client.get(urlresolvers.reverse(
+        paciente_urls.PACIENTE_LIST_URL_NAME), {'q': '18423347'})
+
+    self.assertIn('Gustavo', response.content)
+    self.assertNotIn('Ithamar', response.content)
+
+    # Search by name.
+    response = self.client.get(urlresolvers.reverse(
+        paciente_urls.PACIENTE_LIST_URL_NAME), {'q': 'Alexander'})
+
+    self.assertIn('Alexander', response.content)
+    self.assertNotIn('Gustavo', response.content)
+
+    # Search by lastname.
+    response = self.client.get(urlresolvers.reverse(
+        paciente_urls.PACIENTE_LIST_URL_NAME), {'q': 'Tor'})
+
+    self.assertIn('Ithamar', response.content)
+    self.assertIn('Gustavo', response.content)
+
+    # Search on multiple fields.
+    response = self.client.get(urlresolvers.reverse(
+        paciente_urls.PACIENTE_LIST_URL_NAME), {'q': 'Ithamar Torres'})
+
+    self.assertIn('Ithamar', response.content)
+    self.assertNotIn('Gustavo', response.content)
 
   def test_paciente_search_api_view(self):
     newer_pac = models.Paciente.objects.create(

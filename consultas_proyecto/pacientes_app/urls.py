@@ -11,11 +11,13 @@ from .views import PacienteUpdateView
 from .views import PacienteSearchAPIView
 
 LOGIN_URL_NAME = 'login'
-PACIENTE_DETAIL_URL_NAME = 'paciente_detail'
-PACIENTE_LIST_URL_NAME = 'paciente_list'
-PACIENTE_CREATE_URL_NAME = 'paciente_create'
+
+# URL Names.
+PACIENTE_DETAIL_URL_NAME     = 'paciente_detail'
+PACIENTE_LIST_URL_NAME       = 'paciente_list'
+PACIENTE_CREATE_URL_NAME     = 'paciente_create'
 PACIENTE_SEARCH_API_URL_NAME = 'api_paciente_list'
-PACIENTE_UPDATE_URL_NAME = 'paciente_update'
+PACIENTE_UPDATE_URL_NAME     = 'paciente_update'
 
 settings.LOGIN_URL = LOGIN_URL_NAME
 
