@@ -97,6 +97,13 @@ class PacientesAppViewsTest(test.TestCase):
     self.assertIn('Ithamar', response.content)
     self.assertNotIn('Gustavo', response.content)
 
+    # Search is case insensitive.
+    response = self.client.get(urlresolvers.reverse(
+        paciente_urls.PACIENTE_LIST_URL_NAME), {'q': 'iThA'})
+
+    self.assertIn('Ithamar', response.content)
+    self.assertNotIn('Gustavo', response.content)
+
   def test_paciente_search_api_view(self):
     newer_pac = models.Paciente.objects.create(
         cedula='13785815',

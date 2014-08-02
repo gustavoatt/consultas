@@ -61,8 +61,8 @@ class PacienteListView(generic.list.ListView):
 
     if query:
       words = query.split()
-      lookups = [Q(cedula__contains=word) | Q(nombres__contains=word) |
-                 Q(apellidos__contains=word) for word in words]
+      lookups = [Q(cedula__icontains=word) | Q(nombres__icontains=word) |
+                 Q(apellidos__icontains=word) for word in words]
       return Paciente.objects.filter(*lookups)
     else:
       return super(PacienteListView, self).get_queryset()
