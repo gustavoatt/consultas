@@ -24,7 +24,7 @@ class HistoriaEditForm(floppyforms.ModelForm):
                 'antecedentes_familiares',
                 'habitos_psicobiologicos'
             ),
-            bootstrap.Tab(u'Exámenes',
+            bootstrap.Tab(u'Exámen Físico',
                 'examen_general',
                 'examen_piel',
                 'examen_cabeza',
