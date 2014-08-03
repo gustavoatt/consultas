@@ -42,14 +42,14 @@ class HistoriaEditForm(floppyforms.ModelForm):
                 'examen_epidemiologico'
             ),
             bootstrap.Tab(u'Signos vitales',
-                'temperatura',
-                'pulso',
+                bootstrap.AppendedText('temperatura', u'°C'),
+                bootstrap.AppendedText('pulso', 'ppm'),
                 'respiracion',
                 'tension_art_sist',
                 'tension_art_diast',
                 'frecuencia_cardiaca',
-                'peso',
-                'talla',
+                bootstrap.AppendedText('peso', 'kg'),
+                bootstrap.AppendedText('talla', 'cm'),
                 'grasa_corporal'
             )
         ),

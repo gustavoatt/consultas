@@ -56,8 +56,7 @@ class Historia(models.Model):
                              )
   peso                     = models.DecimalField(
                                max_digits=5, decimal_places=2, blank=True,
-                               null=True,
-                               help_text=u'Peso en Kilogramos'
+                               null=True
                              )
   talla                    = models.DecimalField(
                                max_digits=7, decimal_places=2, blank=True,
